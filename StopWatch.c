@@ -13,7 +13,6 @@ unsigned char flag=0;
 void SysTick_Handler(){
 		seconds++;
 		SplitTime(seconds,minutes);
-	
 	if(seconds>=59){
 		seconds=0;
 		minutes++;
@@ -28,18 +27,20 @@ void SysTick_Handler(){
 		if(readSwitch(sw_2)){
 			flag=0;
 			LedOff(red_led);
+			LedOn(green_led);
 		}
-	display_On();
-	LedOn(green_led);
-		
+	display_On();	
 	}					
 }
+
+
 void StopWatch_On(){
 	Sys_tick_Init();
 	InitPortF();
 	Init_Seven_Segment();
 	while(1){
 		display_On();
+		LedOn(green_led);	
 		if(readSwitch(sw_1)){
 		flag=1;
 		LedOff(green_led);

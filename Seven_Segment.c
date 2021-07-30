@@ -10,7 +10,7 @@ unsigned char digit1,digit2,digit3,digit4;
 void delay(void){
 	
 	unsigned long volatile time;
-	time = 727240*200/91000; 		 // 0.1 ms
+	time = 727240*200/91000; 		
 	while(time){
 	time--;
   }
