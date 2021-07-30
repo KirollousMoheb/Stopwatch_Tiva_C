@@ -30,11 +30,11 @@ void SysTick_Handler(){
 			LedOff(red_led);
 		}
 	display_On();
+	LedOn(green_led);
 		
 	}					
 }
 void StopWatch_On(){
-
 	Sys_tick_Init();
 	InitPortF();
 	Init_Seven_Segment();
@@ -42,6 +42,7 @@ void StopWatch_On(){
 		display_On();
 		if(readSwitch(sw_1)){
 		flag=1;
+		LedOff(green_led);
 		LedOn(red_led);
 		}
 	
