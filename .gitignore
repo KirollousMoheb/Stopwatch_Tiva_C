@@ -1,0 +1,11 @@
+
+leds_switches.crf
+*.d
+*.o
+*.crf
+startup_tm4c123.lst
+StopWatch.axf
+*.htm
+StopWatch.map
+*.dep
+*.lnp
