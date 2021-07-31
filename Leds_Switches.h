@@ -12,6 +12,7 @@ void InitPortF(void);
 void LedOn(unsigned char);
 void LedOff(unsigned char);
 unsigned char readSwitch(unsigned char);
+void clearSwitch(unsigned char);
 
 
 
