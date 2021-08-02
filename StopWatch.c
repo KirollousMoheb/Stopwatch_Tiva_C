@@ -9,6 +9,8 @@
 
 
 unsigned char paused=0;
+unsigned char pause=0;
+unsigned char resume=0;
 unsigned char seconds=0;
 unsigned char minutes=0;
 void SysTick_Handler(){
@@ -26,6 +28,17 @@ void SysTick_Handler(){
 	minutes=0;
 	seconds=0;
 	}
+
+		if(readSwitch(sw_2)){
+	clearSwitch(sw_2);
+
+	resume++;
+		if(resume-pause>5){
+		Sys_tick_Init(1000);
+
+	}
+	}
+
 	
 	while(paused){//if paused=1(when switch 1 is pressed)
 	display_On();//keep displaying the last reached time but no increment happens
@@ -34,8 +47,10 @@ void SysTick_Handler(){
 		paused=0;
 		LedOff(red_led);
 		LedOn(green_led);
-	}		
-	}					
+	}
+
+	}
+	
 }
 void StopWatch_On(){
 	Sys_tick_Init(100);
@@ -46,10 +61,12 @@ void StopWatch_On(){
 	LedOn(green_led);	
 	if(readSwitch(sw_1)){
 	clearSwitch(sw_1);
+	pause++;
 	paused=1;
 	LedOff(green_led);
 	LedOn(red_led);
 	}
+
 	
 	}
 }
