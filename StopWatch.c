@@ -14,8 +14,8 @@ unsigned char resume=0;
 unsigned char seconds=0;
 unsigned char minutes=0;
 void SysTick_Handler(){
-	
-	//increment seconds each time the reload register goes down to zero
+	if(!paused){
+		//increment seconds each time the reload register goes down to zero
 	seconds++;
 	//split the seconds and minutes into 2 digits each
 	SplitTime(seconds,minutes);
@@ -28,45 +28,40 @@ void SysTick_Handler(){
 	minutes=0;
 	seconds=0;
 	}
-
-		if(readSwitch(sw_2)){
+			if(readSwitch(sw_2)){
 	clearSwitch(sw_2);
 
 	resume++;
-		if(resume-pause>5){
+		if(resume-pause>=5){
 		Sys_tick_Init(1000);
-
-	}
-	}
-
-	
-	while(paused){//if paused=1(when switch 1 is pressed)
-	display_On();//keep displaying the last reached time but no increment happens
-	if(readSwitch(sw_2)){//if switch 2 is pressed paused=0 and break the loop
-		clearSwitch(sw_2);
-		paused=0;
-		LedOff(red_led);
-		LedOn(green_led);
-	}
-
-	}
-	
+												}
+							}
+			}	
 }
 void StopWatch_On(){
 	Sys_tick_Init(100);
 	InitPortF();
 	Init_Seven_Segment();
+	
 	while(1){
 	display_On();
-	LedOn(green_led);	
+	if(paused){
+		LedOn(red_led);
+		LedOff(green_led);
+	}else{
+		LedOn(green_led);
+		LedOff(red_led);
+	}
 	if(readSwitch(sw_1)){
 	clearSwitch(sw_1);
 	pause++;
-	paused=1;
-	LedOff(green_led);
-	LedOn(red_led);
+	paused=1;	
 	}
-
+	if(readSwitch(sw_2)){
+	clearSwitch(sw_2);
+	pause++;
+	paused=0;
+	}
 	
 	}
 }
